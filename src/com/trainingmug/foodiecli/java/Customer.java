@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Customer {
+
     /*
     add the following properties
     --------------------------------------
