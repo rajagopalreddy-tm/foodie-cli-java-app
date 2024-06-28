@@ -17,8 +17,7 @@ public class Order {
     List<Dish>                  dishes
     double                      totalPrice
     Date                        orderDate
-     /
-
+    /
     /
     All the fields should be private
     Create only no-arg constructor
@@ -34,10 +33,11 @@ public class Order {
     private double totalPrice;
     private Date orderDate;
 
-
+    //no-arg constructor
     public Order() {
     }
 
+    //Getters and Setter methods
     public String getId() {
         return id;
     }
@@ -75,6 +75,7 @@ public class Order {
         this.orderDate = orderDate;
     }
 
+    //equals() method
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,11 +84,13 @@ public class Order {
         return Double.compare(totalPrice, order.totalPrice) == 0 && Objects.equals(id, order.id) && Objects.equals(customer, order.customer) && Objects.equals(restaurant, order.restaurant) && Objects.equals(dishes, order.dishes) && Objects.equals(orderDate, order.orderDate);
     }
 
+    //hashCode() method
     @Override
     public int hashCode() {
         return Objects.hash(id, customer, restaurant, dishes, totalPrice, orderDate);
     }
 
+    //toString() method
     @Override
     public String toString() {
         return "Order{" +

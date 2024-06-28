@@ -14,8 +14,7 @@ public class Customer {
     String                      email
     String                      password
     List<Dish>                  orderHistory
-     /
-
+    /
     /
     All the fields should be private
     Create only no-arg constructor
@@ -23,15 +22,18 @@ public class Customer {
     Override hashCode() and equals() methods
     Override toString() methods
     */
+
     private String id;
     private String name;
     private String email;
     private String password;
     private List<Order> orderHistory;
 
+    //no-arg constructor
     public Customer() {
     }
 
+    //Getters and Setter methods
     public String getId() {
         return id;
     }
@@ -63,6 +65,7 @@ public class Customer {
         this.orderHistory = orderHistory;
     }
 
+    //equals() methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -71,11 +74,13 @@ public class Customer {
         return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(password, customer.password) && Objects.equals(orderHistory, customer.orderHistory);
     }
 
+    //hashCode() method
     @Override
     public int hashCode() {
         return Objects.hash(id, name, email, password, orderHistory);
     }
 
+    //toString() method
     @Override
     public String toString() {
         return "Customer{" +
@@ -86,4 +91,5 @@ public class Customer {
                 ", orderHistory=" + orderHistory +
                 '}';
     }
+
 }

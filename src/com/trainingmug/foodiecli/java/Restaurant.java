@@ -14,8 +14,7 @@ public class Restaurant {
     String                      name
     String                      address
     List<Dish>                  menu
-     /
-
+    /
     /
     All the fields should be private
     Create only no-arg constructor
@@ -29,9 +28,11 @@ public class Restaurant {
     private String address;
     private List<Dish> menu;
 
+    //no-arg constructor
     public Restaurant() {
     }
 
+    //Getters and Setter methods
     public String getId() {
         return id;
     }
@@ -57,6 +58,7 @@ public class Restaurant {
         this.menu = menu;
     }
 
+    //equals() method
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,11 +67,13 @@ public class Restaurant {
         return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(menu, that.menu);
     }
 
+    //hashCode() method
     @Override
     public int hashCode() {
         return Objects.hash(id, name, address, menu);
     }
 
+    //toString() method
     @Override
     public String toString() {
         return "Restaurant{" +
