@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Order {
+
      /*
     add the following properties
     --------------------------------------
@@ -33,50 +34,43 @@ public class Order {
     private double totalPrice;
     private Date orderDate;
 
+
+    public Order() {
+    }
+
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
-
     public Customer getCustomer() {
         return customer;
     }
-
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-
     public Restaurant getRestaurant() {
         return restaurant;
     }
-
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
-
     public List<Dish> getDishes() {
         return dishes;
     }
-
     public void setDishes(List<Dish> dishes) {
         this.dishes = dishes;
     }
-
     public double getTotalPrice() {
         return totalPrice;
     }
-
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
-
     public Date getOrderDate() {
         return orderDate;
     }
-
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
@@ -105,4 +99,5 @@ public class Order {
                 ", orderDate=" + orderDate +
                 '}';
     }
+
 }
