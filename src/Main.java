@@ -1,13 +1,12 @@
-import com.trainingmug.foodiecli.util.CsvReader;
+import com.trainingmug.foodiecli.exceptions.DishAlreadyExistsException;
+import com.trainingmug.foodiecli.ui.Menu;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, DishAlreadyExistsException {
 
-        CsvReader csvReader = new CsvReader();
-
-        System.out.println(csvReader.readDishListFromCsv());
-        System.out.println(csvReader.readCustomerListFromCsv());
-        System.out.println(csvReader.readRestaurantListFromCsv());
+        Menu menu = new Menu();
+        menu.displayMainMenu();
 
     }
 }

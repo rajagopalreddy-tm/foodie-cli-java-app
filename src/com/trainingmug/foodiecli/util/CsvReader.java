@@ -16,6 +16,7 @@ public class CsvReader {
 //    private List<Dish> dishList;
 //    private List<Customer> customerList;
 
+    //Read Dish Csv
     public List<Dish> readDishListFromCsv() {
         String DISH_CSV_PATH = "C:\\SPRING_BOOT\\foodie-cli-java-app\\data\\dishes.csv";
         String line;
@@ -41,6 +42,7 @@ public class CsvReader {
         return dishList;
     }
 
+    //Read Customer Csv
     public List<Customer> readCustomerListFromCsv(){
         String CUSTOMER_CSV_PATH = "C:\\SPRING_BOOT\\foodie-cli-java-app\\data\\customers.csv";
         String line;
@@ -66,6 +68,7 @@ public class CsvReader {
         return customersList;
     }
 
+    //Read Restaurant Csv
     public List<Restaurant> readRestaurantListFromCsv(){
         String RESTAURANT_CSV_PATH = "C:\\SPRING_BOOT\\foodie-cli-java-app\\data\\restaurants.csv";
         String line;
