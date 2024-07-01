@@ -1,4 +1,4 @@
-package com.trainingmug.foodiecli.java;
+package com.trainingmug.foodiecli.model;
 
 import java.util.Objects;
 
@@ -27,60 +27,80 @@ public class Dish {
     private String description;
     private double price;
 
-    //no-arg constructor
     public Dish() {
     }
 
-    //Getters and Setter methods
+    // Getter for dishId
     public String getId() {
         return id;
     }
+
+    // Setter for dishId
     public Dish setId(String id) {
         this.id = id;
         return this;
     }
+
+    // Getter for name
     public String getName() {
         return name;
     }
+
+    // Setter for name
     public Dish setName(String name) {
         this.name = name;
         return this;
     }
+
+    // Getter for description
     public String getDescription() {
         return description;
     }
+
+    // Setter for description
     public Dish setDescription(String description) {
         this.description = description;
         return this;
     }
+
+    // Getter for price
     public double getPrice() {
         return price;
     }
+
+    // Setter for price
     public Dish setPrice(double price) {
         this.price = price;
         return this;
     }
 
-    //equals() method
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Dish dish = (Dish) o;
-        return Double.compare(price, dish.price) == 0 && Objects.equals(id, dish.id) && Objects.equals(name, dish.name) && Objects.equals(description, dish.description);
-    }
-
-    //hashCode() method
+    // Overriding hashCode
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, price);
     }
 
-    //toString() method
+    // Overriding equals
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Dish dish = (Dish) obj;
+        return Double.compare(dish.price, price) == 0 &&
+                Objects.equals(id, dish.id) &&
+                Objects.equals(name, dish.name) &&
+                Objects.equals(description, dish.description);
+    }
+
+    // Overriding toString
     @Override
     public String toString() {
         return "Dish{" +
-                "id='" + id + '\'' +
+                " id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +

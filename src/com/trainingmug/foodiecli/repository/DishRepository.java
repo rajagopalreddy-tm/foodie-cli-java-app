@@ -1,6 +1,6 @@
 package com.trainingmug.foodiecli.repository;
 
-import com.trainingmug.foodiecli.java.Dish;
+import com.trainingmug.foodiecli.model.Dish;
 import com.trainingmug.foodiecli.exceptions.DishAlreadyExistsException;
 import com.trainingmug.foodiecli.util.CsvReader;
 

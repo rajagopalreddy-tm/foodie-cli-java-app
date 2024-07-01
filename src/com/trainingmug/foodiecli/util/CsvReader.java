@@ -1,8 +1,8 @@
 package com.trainingmug.foodiecli.util;
 
-import com.trainingmug.foodiecli.java.Customer;
-import com.trainingmug.foodiecli.java.Dish;
-import com.trainingmug.foodiecli.java.Restaurant;
+import com.trainingmug.foodiecli.model.Customer;
+import com.trainingmug.foodiecli.model.Dish;
+import com.trainingmug.foodiecli.model.Restaurant;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,45 +13,42 @@ import java.util.List;
 
 public class CsvReader {
 
-//    private List<Dish> dishList;
-//    private List<Customer> customerList;
+    private List<Dish> dishesList;
 
-    //Read Dish Csv
-    public List<Dish> readDishListFromCsv() {
-        String DISH_CSV_PATH = "C:\\SPRING_BOOT\\foodie-cli-java-app\\data\\dishes.csv";
+    public List<Dish> readDishes() {
+        String DISHES_CSV_PATH = "C:\\SPRING_BOOT\\foodie-cli-java-app\\data\\dishes.csv";
         String line;
-        List<Dish> dishList = new ArrayList<>();
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(DISH_CSV_PATH))){
-            String splitCsvBy= ",";
-            bufferedReader.readLine();
-            while ((line = bufferedReader.readLine()) != null){
-                String [] data  = line.split(splitCsvBy);
+        List<Dish> dishesList = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(DISHES_CSV_PATH))) {
+            String cvsSplitBy = ",";
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(cvsSplitBy);
                 Dish dish = new Dish();
                 dish.setId(data[0])
                         .setName(data[1])
                         .setDescription(data[2])
                         .setPrice(Double.parseDouble(data[3]));
-                dishList.add(dish);
+                dishesList.add(dish);
             }
-//            this.dishList = dishList;
+            this.dishesList = dishesList;
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("issue in reading csv file from the  path :" + DISH_CSV_PATH);
+            System.out.println("Issues in reading csv file from the path :" + DISHES_CSV_PATH);
             System.exit(0);
         }
-        return dishList;
+        return dishesList;
     }
 
-    //Read Customer Csv
-    public List<Customer> readCustomerListFromCsv(){
-        String CUSTOMER_CSV_PATH = "C:\\SPRING_BOOT\\foodie-cli-java-app\\data\\customers.csv";
+    public List<Customer> readCustomers() {
+        String CUSTOMERS_CSV_PATH = "C:\\SPRING_BOOT\\foodie-cli-java-app\\data\\customers.csv";
         String line;
         List<Customer> customersList = new ArrayList<>();
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(CUSTOMER_CSV_PATH))){
-            String splitCsvBy = ",";
-            bufferedReader.readLine();
-            while ((line = bufferedReader.readLine())!= null){
-                String [] data = line.split(splitCsvBy);
+        try (BufferedReader br = new BufferedReader(new FileReader(CUSTOMERS_CSV_PATH))) {
+            String cvsSplitBy = ",";
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(cvsSplitBy);
                 Customer customer = new Customer();
                 customer.setId(data[0])
                         .setName(data[1])
@@ -59,40 +56,36 @@ public class CsvReader {
                         .setPassword(data[3]);
                 customersList.add(customer);
             }
-//            this.customerList = customersList;
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("issue in reading csv file from the  path :" + CUSTOMER_CSV_PATH);
+            System.out.println("Issues in reading csv file from the path :" + CUSTOMERS_CSV_PATH);
             System.exit(0);
         }
         return customersList;
     }
 
-    //Read Restaurant Csv
-    public List<Restaurant> readRestaurantListFromCsv(){
-        String RESTAURANT_CSV_PATH = "C:\\SPRING_BOOT\\foodie-cli-java-app\\data\\restaurants.csv";
+    public List<Restaurant> readRestaurants() {
+        String RESTAURANTS_CSV_PATH = "C:\\SPRING_BOOT\\foodie-cli-java-app\\data\\restaurants.csv";
         String line;
-        List<Restaurant> restaurantList = new ArrayList<>();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(RESTAURANT_CSV_PATH))) {
-            String splitCsvBy = ",";
-            bufferedReader.readLine();
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] data = line.split(splitCsvBy);
-                if (data.length >= 4) { // Ensure at least 4 elements (0 to 3)
-                    Restaurant restaurant = new Restaurant();
-                    restaurant.setId(data[0])
-                            .setName(data[1])
-                            .setAddress(data[2])
-                            .setMenu(Arrays.asList(data[3].split(":")));
-                    restaurantList.add(restaurant);
-                }
+        List<Restaurant> restaurantsList = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(RESTAURANTS_CSV_PATH))) {
+            String cvsSplitBy = ",";
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(cvsSplitBy);
+                Restaurant restaurant = new Restaurant();
+
+                restaurant.setId(data[0])
+                        .setName(data[1])
+                        .setAddress(data[2])
+                        .setMenu(Arrays.asList(data[3].split(":")));
+                restaurantsList.add(restaurant);
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Issue in reading CSV file from the path: " + RESTAURANT_CSV_PATH);
+            System.out.println("Issues in reading csv file from the path :" + RESTAURANTS_CSV_PATH);
             System.exit(0);
         }
-        return restaurantList;
+        return restaurantsList;
     }
-
 }

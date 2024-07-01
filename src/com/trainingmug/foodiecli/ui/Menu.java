@@ -2,10 +2,8 @@ package com.trainingmug.foodiecli.ui;
 import com.trainingmug.foodiecli.controller.CustomerController;
 import com.trainingmug.foodiecli.exceptions.CustomerAlreadyExistsException;
 import com.trainingmug.foodiecli.factory.Factory;
-import com.trainingmug.foodiecli.java.Customer;
-import com.trainingmug.foodiecli.util.CsvReader;
+import com.trainingmug.foodiecli.model.Customer;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Menu {

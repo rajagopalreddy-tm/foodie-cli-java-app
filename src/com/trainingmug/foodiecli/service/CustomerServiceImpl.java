@@ -1,13 +1,13 @@
 package com.trainingmug.foodiecli.service;
 
 import com.trainingmug.foodiecli.exceptions.CustomerAlreadyExistsException;
-import com.trainingmug.foodiecli.java.Customer;
+import com.trainingmug.foodiecli.model.Customer;
 import com.trainingmug.foodiecli.repository.CustomerRepository;
 import java.util.Optional;
 
 public class CustomerServiceImpl implements CustomerService {
 
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     public CustomerServiceImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;

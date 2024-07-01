@@ -1,7 +1,6 @@
 package com.trainingmug.foodiecli.repository;
 
-import com.trainingmug.foodiecli.java.Customer;
-import com.trainingmug.foodiecli.java.Dish;
+import com.trainingmug.foodiecli.model.Customer;
 import com.trainingmug.foodiecli.util.CsvReader;
 
 import java.util.ArrayList;
@@ -15,9 +14,10 @@ public class CustomerRepository {
     public CustomerRepository() {
         this.customersList = new ArrayList<>();
         CsvReader csvReader = new CsvReader();
-        this.customersList = csvReader.readCustomerListFromCsv();
+        this.customersList = csvReader.readCustomers();
     }
 
+    //get customers
     public List<Customer> getCustomersList() {
         return this.customersList;
     }

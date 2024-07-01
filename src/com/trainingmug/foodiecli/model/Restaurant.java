@@ -1,4 +1,4 @@
-package com.trainingmug.foodiecli.java;
+package com.trainingmug.foodiecli.model;
 
 import java.util.List;
 import java.util.Objects;
@@ -13,7 +13,7 @@ public class Restaurant {
     String                      id
     String                      name
     String                      address
-    List<Dish>                  menu
+    List<String>                menu
     /
     /
     All the fields should be private
@@ -28,57 +28,75 @@ public class Restaurant {
     private String address;
     private List<String> menu;
 
-    //no-arg constructor
-    public Restaurant() {
-    }
-
-    //Getters and Setter methods
-
+    // Getter for restaurantId
     public String getId() {
         return id;
     }
+
+    // Setter for restaurantId
     public Restaurant setId(String id) {
         this.id = id;
         return this;
     }
+
+    // Getter for name
     public String getName() {
         return name;
     }
+
+    // Setter for name
     public Restaurant setName(String name) {
         this.name = name;
         return this;
     }
+
+    // Getter for address
     public String getAddress() {
         return address;
     }
+
+    // Setter for address
     public Restaurant setAddress(String address) {
         this.address = address;
         return this;
     }
+
+    // Getter for menu
     public List<String> getMenu() {
         return menu;
     }
+
+    // Setter for menu
     public Restaurant setMenu(List<String> menu) {
         this.menu = menu;
         return this;
     }
 
-    //equals() method
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Restaurant that = (Restaurant) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(menu, that.menu);
-    }
 
-    //hashCode() method
+
+    // Overriding hashCode
     @Override
     public int hashCode() {
         return Objects.hash(id, name, address, menu);
     }
 
-    //toString() method
+    // Overriding equals
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Restaurant restaurant = (Restaurant) obj;
+        return Objects.equals(id, restaurant.id) &&
+                Objects.equals(name, restaurant.name) &&
+                Objects.equals(address, restaurant.address) &&
+                Objects.equals(menu, restaurant.menu);
+    }
+
+    // Overriding toString
     @Override
     public String toString() {
         return "Restaurant{" +
