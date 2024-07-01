@@ -1,5 +1,13 @@
+import com.trainingmug.foodiecli.util.CsvReader;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+
+        CsvReader csvReader = new CsvReader();
+
+        System.out.println(csvReader.readDishListFromCsv());
+        System.out.println(csvReader.readCustomerListFromCsv());
+        System.out.println(csvReader.readRestaurantListFromCsv());
+
     }
 }

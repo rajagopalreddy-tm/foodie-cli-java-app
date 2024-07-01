@@ -28,7 +28,7 @@ public class Customer {
     private String name;
     private String email;
     private String password;
-    private List<Order> orderHistory;
+//    private List<Order>  orderHistory;
 
     //no-arg constructor
     public Customer() {
@@ -38,33 +38,36 @@ public class Customer {
     public String getId() {
         return id;
     }
-    public void setId(String id) {
+    public Customer setId(String id) {
         this.id = id;
+        return this;
     }
     public String getName() {
         return name;
     }
-    public void setName(String name) {
+    public Customer setName(String name) {
         this.name = name;
+        return this;
     }
     public String getEmail() {
         return email;
     }
-    public void setEmail(String email) {
+    public Customer setEmail(String email) {
         this.email = email;
+        return this;
     }
     public String getPassword() {
         return password;
     }
-    public void setPassword(String password) {
+    public Customer setPassword(String password) {
         this.password = password;
+        return this;
     }
-    public List<Order> getOrderHistory() {
-        return orderHistory;
-    }
-    public void setOrderHistory(List<Order> orderHistory) {
-        this.orderHistory = orderHistory;
-    }
+//    public List<Order> getOrderHistory() {
+//
+//        this.orderHistory = orderHistory;
+//        return (List<Order>) this;
+//    }
 
     //equals() methods
     @Override
@@ -72,13 +75,13 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(password, customer.password) && Objects.equals(orderHistory, customer.orderHistory);
+        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(password, customer.password);
     }
 
     //hashCode() method
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, password, orderHistory);
+        return Objects.hash(id, name, email, password);
     }
 
     //toString() method
@@ -89,7 +92,6 @@ public class Customer {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", orderHistory=" + orderHistory +
                 '}';
     }
 
