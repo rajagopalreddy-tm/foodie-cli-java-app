@@ -1,8 +1,11 @@
 package com.trainingmug.foodiecli.controller;
 
 import com.trainingmug.foodiecli.exceptions.CustomerAlreadyExistsException;
+import com.trainingmug.foodiecli.exceptions.CustomerNotFoundException;
 import com.trainingmug.foodiecli.model.Customer;
 import com.trainingmug.foodiecli.service.CustomerService;
+
+import java.util.List;
 
 public class CustomerController {
 
@@ -12,8 +15,21 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
+    public List<Customer> getAllCustomer() {
+        return customerService.getALlCustomer();
+    }
+
     public Customer save(Customer customer) throws CustomerAlreadyExistsException {
         return customerService.save(customer);
     }
+
+    public Customer edit(Customer customer, String id) throws CustomerNotFoundException {
+        return customerService.edit(customer,id);
+    }
+
+    public void delete(String id) throws CustomerNotFoundException {
+        customerService.delete(id);
+    }
+
 
 }

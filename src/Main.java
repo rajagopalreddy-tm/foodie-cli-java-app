@@ -1,4 +1,7 @@
+import com.trainingmug.foodiecli.controller.CustomerController;
 import com.trainingmug.foodiecli.exceptions.DishAlreadyExistsException;
+import com.trainingmug.foodiecli.factory.Factory;
+import com.trainingmug.foodiecli.service.CustomerService;
 import com.trainingmug.foodiecli.ui.Menu;
 import com.trainingmug.foodiecli.util.CsvReader;
 
@@ -9,6 +12,7 @@ public class Main {
 
         Menu menu = new Menu();
         menu.displayMainMenu();
+
 
     }
 }
