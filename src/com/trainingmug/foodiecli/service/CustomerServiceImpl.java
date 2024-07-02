@@ -41,7 +41,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void delete(String id) throws CustomerNotFoundException {
-        if (customerRepository.findCustomerById(id).isEmpty()) {
+        Optional<Customer> customerId = customerRepository.findCustomerById(id);
+        if (customerId.isEmpty()) {
             throw new CustomerNotFoundException("Customer with ID " + id + " not found.");
         }
         customerRepository.deleteCustomer(id);

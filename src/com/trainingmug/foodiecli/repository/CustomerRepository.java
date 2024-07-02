@@ -43,6 +43,7 @@ public class CustomerRepository {
                 .findAny();
     }
 
+    //update
     public Customer edit(Customer customer, String id) {
         for (int i = 0; i < customersList.size(); i++) {
             if (customersList.get(i).getId().equals(id)) {
@@ -53,14 +54,16 @@ public class CustomerRepository {
         return null;
     }
 
+    //delete
     public void deleteCustomer(String id) {
-        Iterator<Customer> iterator = customersList.iterator();
-        while (iterator.hasNext()) {
-            Customer customer = iterator.next();
-            if (customer.getId().equals(id)) {
-                iterator.remove();
+        Iterator<Customer> customer = customersList.iterator();
+        while (customer.hasNext()){
+            Customer customerId = customer.next();
+            if (customerId.getId().equals(id)){
+                customer.remove();
                 break;
             }
         }
     }
+
 }

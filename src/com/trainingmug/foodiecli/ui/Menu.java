@@ -76,14 +76,16 @@ public class Menu {
                 case 4:
                     updateCustomer();
                     break;
-//                case 5:
-//                    deleteCustomer();
-//                    break;
+                case 5:
+                    deleteCustomer();
+                    break;
                 default:
                     System.out.println("Invalid Input. Please enter the valid input from(1-7)");
             }
         }
     }
+
+
 
     private void displaySignUp() {
         Scanner scanner = new Scanner(System.in);
@@ -131,12 +133,10 @@ public class Menu {
 
         try {
             Customer savedCustomer = customerController.save(customer);
-            System.out.println("Customer Registration Successful");
+            System.out.println("Customer Login Successful");
             System.out.println("Details:");
-            System.out.println("Id : " + savedCustomer.getId());
             System.out.println("Name : " + savedCustomer.getName());
             System.out.println("E-mail : " + savedCustomer.getEmail());
-            System.out.println("Password : " + savedCustomer.getPassword());
         } catch (CustomerAlreadyExistsException e) {
             System.out.println(e.getMessage());
         }
@@ -176,7 +176,7 @@ public class Menu {
                 .setPassword(password);
 
         try {
-            Customer customerUpdate = customerController.edit(customer, id);
+            customerController.edit(customer, id);
             System.out.println("Customer updated successfully.");
             System.out.println("Updated Details:");
             System.out.println("Id : " + id);
@@ -185,6 +185,19 @@ public class Menu {
             System.out.println("Password : " + customer.getPassword());
         } catch (CustomerNotFoundException e) {
             System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void deleteCustomer() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the ID of the customer you want to delete");
+        String id = scanner.nextLine();
+
+        try{
+            customerController.delete(id);
+            System.out.println("Customer with ID: "+id+" deleted Successfully !");
+        } catch (CustomerNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
