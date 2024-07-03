@@ -32,8 +32,8 @@ public class CustomerRepository {
     //get Customer by ID
     public Customer getCustomerById(String id) {
         Optional<Customer> customer = customersList.stream()
-                .filter(c -> c.getId().equals(id))
-                .findAny();
+                .filter(customerId -> customerId.getId().equals(id))
+                .findFirst();
         return customer.orElseThrow();
     }
 

@@ -1,11 +1,9 @@
 package com.trainingmug.foodiecli.repository;
 
 import com.trainingmug.foodiecli.model.Dish;
-import com.trainingmug.foodiecli.exceptions.DishAlreadyExistsException;
-import com.trainingmug.foodiecli.util.CsvReader;
 import com.trainingmug.foodiecli.util.Factory;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,4 +29,31 @@ public class DishRepository {
         return this.dishList;
     }
 
+    public Dish getDishById(String id) {
+        Optional<Dish> dish = dishList.stream()
+                .filter(dishId -> dishId.getId().equals(id))
+                .findFirst();
+        return dish.orElseThrow();
+    }
+
+    public Dish edit(Dish dish, String id) {
+        for (int i = 0; i < dishList.size(); i++){
+            if (dishList.get(i).getId().equals(id)) {
+                dishList.set(i, dish);
+                return dish;
+            }
+        }
+        return null;
+    }
+
+    public void delete(String id) {
+        Iterator<Dish> dish = dishList.iterator();
+        while (dish.hasNext()){
+            Dish dishId = dish.next();
+            if(dishId.getId().equals(id)){
+                dish.remove();
+                break;
+            }
+        }
+    }
 }

@@ -1,7 +1,9 @@
 package com.trainingmug.foodiecli.service;
 
 import com.trainingmug.foodiecli.exceptions.DishAlreadyExistsException;
+import com.trainingmug.foodiecli.exceptions.DishNotFoundException;
 import com.trainingmug.foodiecli.model.Dish;
+import com.trainingmug.foodiecli.model.Restaurant;
 import com.trainingmug.foodiecli.repository.DishRepository;
 
 import java.util.List;
@@ -27,5 +29,32 @@ public class DishServiceImpl implements  DishService {
     @Override
     public List<Dish> getAllDishes() {
         return dishRepository.getAllDishes();
+    }
+
+    @Override
+    public Dish getDishById(String id) throws DishNotFoundException {
+        Optional<Dish> dishId = dishRepository.findDishById(id);
+        if(dishId.isEmpty()){
+            throw new DishNotFoundException("Dish with ID: "+id+" not found");
+        }
+        return dishRepository.getDishById(id);
+    }
+
+    @Override
+    public Dish edit(Dish dish, String id) throws DishNotFoundException {
+        Optional<Dish> dishId = dishRepository.findDishById(id);
+        if(dishId.isEmpty()){
+            throw new DishNotFoundException("Dish with ID: "+id+" not found ");
+        }
+        return dishRepository.edit(dish, id);
+    }
+
+    @Override
+    public void delete(String id) throws DishNotFoundException {
+        Optional<Dish> dishId = dishRepository.findDishById(id);
+        if(dishId.isEmpty()){
+            throw new DishNotFoundException("Dish with ID: "+id+" not found  ");
+        }
+        dishRepository.delete(id);
     }
 }
