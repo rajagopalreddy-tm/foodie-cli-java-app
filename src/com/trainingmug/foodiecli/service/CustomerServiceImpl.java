@@ -10,14 +10,14 @@ import java.util.Optional;
 
 public class CustomerServiceImpl implements CustomerService {
 
-    private final CustomerRepository customerRepository;
+    CustomerRepository customerRepository;
 
     public CustomerServiceImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
     @Override
-    public List<Customer> getALlCustomer() {
+    public List<Customer> getAllCustomer() {
         return  customerRepository.getAllCustomers();
     }
 
@@ -28,6 +28,15 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerAlreadyExistsException("Customer with ID " + customer.getId() + " already exists.");
         }
         return customerRepository.saveCustomer(customer);
+    }
+
+    @Override
+    public Customer getCustomerById(String id) throws CustomerNotFoundException {
+        Optional<Customer> customerId = customerRepository.findCustomerById(id);
+        if (customerId.isEmpty()){
+            throw new CustomerNotFoundException("Customer with ID: "+ id +" not found");
+        }
+        return customerRepository.getCustomerById(id);
     }
 
     @Override
@@ -46,6 +55,15 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerNotFoundException("Customer with ID " + id + " not found.");
         }
         customerRepository.deleteCustomer(id);
+    }
+
+    @Override
+    public Customer login(Customer customer) throws CustomerNotFoundException {
+        Optional<Customer> customerEmail = customerRepository.findCustomerByEmail(customer.getEmail());
+        if(customerEmail.isEmpty()){
+            throw new CustomerNotFoundException("Customer with Email : "+customer.getEmail()+" not found , please Sign Up");
+        }
+        return customerRepository.login(customer);
     }
 
 

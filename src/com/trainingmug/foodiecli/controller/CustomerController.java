@@ -16,11 +16,19 @@ public class CustomerController {
     }
 
     public List<Customer> getAllCustomer() {
-        return customerService.getALlCustomer();
+        return customerService.getAllCustomer();
     }
 
     public Customer save(Customer customer) throws CustomerAlreadyExistsException {
         return customerService.save(customer);
+    }
+
+    public Customer getCustomerById(String id) throws CustomerNotFoundException {
+        return customerService.getCustomerById(id);
+    }
+
+    public Customer login(Customer customer) throws CustomerNotFoundException {
+        return customerService.login(customer);
     }
 
     public Customer edit(Customer customer, String id) throws CustomerNotFoundException {
@@ -30,6 +38,5 @@ public class CustomerController {
     public void delete(String id) throws CustomerNotFoundException {
         customerService.delete(id);
     }
-
 
 }
