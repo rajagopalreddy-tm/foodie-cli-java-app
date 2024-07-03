@@ -19,7 +19,7 @@ public class RestaurantSection {
 
     public void addRestaurant(){
 
-        System.out.println("Add a Restaurant entering the following details\n");
+        System.out.println("Add a Restaurant entering the following details:\n");
         System.out.println("Enter ID:");
         String id = scanner.nextLine();
         System.out.println("Enter Name:");
@@ -37,7 +37,7 @@ public class RestaurantSection {
 
         try {
             Restaurant restaurantSave = restaurantController.save(restaurant);
-            System.out.println("Restaurant add successfully !");
+            System.out.println("New Restaurant added successfully !");
             System.out.println("Details:");
             System.out.println("Restaurant ID:" + restaurantSave.getId());
             System.out.println("Restaurant Name:" + restaurantSave.getName());

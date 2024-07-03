@@ -70,17 +70,13 @@ public class CustomerSection {
     }
 
     public void viewCustomers() {
-        try {
+        System.out.println("------------------------");
+        List<Customer> customerList = customerController.getAllCustomer();
+        for (Customer customer : customerList) {
+            System.out.println("ID: " + customer.getId());
+            System.out.println("Name: " + customer.getName());
+            System.out.println("Email: " + customer.getEmail());
             System.out.println("------------------------");
-            List<Customer> customerList = customerController.getAllCustomer();
-            for (Customer customer : customerList) {
-                System.out.println("ID: " + customer.getId());
-                System.out.println("Name: " + customer.getName());
-                System.out.println("Email: " + customer.getEmail());
-                System.out.println("------------------------");
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
         }
     }
 

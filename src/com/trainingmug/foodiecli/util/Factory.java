@@ -1,51 +1,55 @@
 package com.trainingmug.foodiecli.util;
 
 import com.trainingmug.foodiecli.controller.CustomerController;
+import com.trainingmug.foodiecli.controller.DishController;
 import com.trainingmug.foodiecli.controller.RestaurantController;
 import com.trainingmug.foodiecli.repository.CustomerRepository;
+import com.trainingmug.foodiecli.repository.DishRepository;
 import com.trainingmug.foodiecli.repository.RestaurantRepository;
-import com.trainingmug.foodiecli.service.CustomerServiceImpl;
-import com.trainingmug.foodiecli.service.RestaurantService;
-import com.trainingmug.foodiecli.service.RestaurantServiceImpl;
+import com.trainingmug.foodiecli.service.*;
 
 public class Factory {
 
-    static CustomerRepository customerRepository;
-    static CustomerServiceImpl customerServiceImpl;
-    static CustomerController customerController;
-
-    static RestaurantRepository restaurantRepository;
-    static RestaurantService restaurantServiceImpl;
-    static RestaurantController restaurantController;
-
-    public static CustomerRepository getCustomerRepository(){
-        customerRepository = new CustomerRepository();
-        return customerRepository;
+    public static CsvReader getCsvReader(){
+        return new CsvReader();
     }
 
-    public static CustomerServiceImpl getCustomerServiceImpl(){
-        customerServiceImpl = new CustomerServiceImpl(getCustomerRepository());
-            return customerServiceImpl;
+    public static CustomerRepository getCustomerRepository(){
+        return new CustomerRepository();
+    }
+
+    public static CustomerServiceImpl getCustomerService(){
+        return new CustomerServiceImpl(getCustomerRepository());
     }
 
     public static CustomerController getCustomerController(){
-        customerController = new CustomerController(getCustomerServiceImpl());
-        return customerController;
+        return new CustomerController(getCustomerService());
     }
+
 
     public static RestaurantRepository getRestaurantRepository(){
-        restaurantRepository = new RestaurantRepository();
-        return restaurantRepository;
+        return new RestaurantRepository();
     }
 
-    public static RestaurantServiceImpl getRestaurantServiceImpl(){
-        restaurantServiceImpl = new RestaurantServiceImpl(getRestaurantRepository());
-        return (RestaurantServiceImpl) restaurantServiceImpl;
+    public static RestaurantServiceImpl getRestaurantService(){
+        return new RestaurantServiceImpl(getRestaurantRepository());
     }
 
     public static RestaurantController getRestaurantController(){
-        restaurantController = new RestaurantController(getRestaurantServiceImpl());
-        return restaurantController;
+        return new RestaurantController(getRestaurantService());
+    }
+
+
+    public static DishRepository getDishRepository(){
+        return new DishRepository();
+    }
+
+    public static DishServiceImpl getDishService() {
+        return new DishServiceImpl(getDishRepository());
+    }
+
+    public static DishController getDishController(){
+        return new DishController(getDishService());
     }
 
 }

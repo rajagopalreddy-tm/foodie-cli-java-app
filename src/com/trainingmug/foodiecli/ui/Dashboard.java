@@ -5,12 +5,12 @@ import java.util.Scanner;
 public class Dashboard  {
 
     CustomerSection customerSection = new CustomerSection();
-
     RestaurantSection restaurantSection = new RestaurantSection();
+    DishSection dishSection = new DishSection();
+    Scanner scanner = new Scanner(System.in);
 
     public void displayDashboard() {
 
-        Scanner scanner = new Scanner(System.in);
         while (true) {
 
             System.out.println("------------------------------------------------------------------");
@@ -22,24 +22,25 @@ public class Dashboard  {
             System.out.println("--------------------------");
             System.out.println("1. Customers Section");
             System.out.println("2. Restaurants Section");
-            System.out.println("3. Orders Section");
-            System.out.println("4. Exit");
+            System.out.println("3. Dish Section");
+            System.out.println("4. Order Section");
+            System.out.println("5. Exit");
 
-            System.out.println("Please enter your choice (1-4)");
+            System.out.println("Please enter your choice (1-5)");
 
             int input = scanner.nextInt();
             switch (input) {
                 case 1 -> customerSection();
                 case 2 -> restaurantSection();
-//                case 3 -> dishesSection();
+                case 3 -> dishesSection();
 //                case 4 -> orderSection();
-                default -> System.out.println("Invalid Input. Please enter the valid input from(1-7)");
+                default -> System.out.println("Invalid Input. Please enter the valid input from(1-5)");
             }
         }
     }
 
+
     private void customerSection() {
-        Scanner scanner = new Scanner(System.in);
 
         while (true) {
             System.out.println("------------------------------------------------------------------");
@@ -73,7 +74,6 @@ public class Dashboard  {
     }
 
     private void restaurantSection() {
-        Scanner scanner = new Scanner(System.in);
 
         while (true) {
             System.out.println("------------------------------------------------------------------");
@@ -104,7 +104,36 @@ public class Dashboard  {
         }
     }
 
+    private void dishesSection() {
 
+        while (true) {
+            System.out.println("------------------------------------------------------------------");
+            System.out.println("                WELCOME TO Dishes Section                     ");
+            System.out.println("------------------------------------------------------------------");
+
+            System.out.println();
+            System.out.println("Please select the option !");
+            System.out.println("--------------------------");
+            System.out.println("1. Add Dish");
+            System.out.println("2. View All Dishes");
+            System.out.println("3. Search Dish");
+            System.out.println("4. Update Dish");
+            System.out.println("5. Delete Dish");
+            System.out.println("6. Return To Dashboard");
+            System.out.println("Please enter your choice (1-6)");
+
+            int input = scanner.nextInt();
+            switch (input) {
+                case 1 -> dishSection.addDish();
+                case 2 -> dishSection.viewDish();
+                case 3 -> dishSection.searchDish();
+                case 4 -> dishSection.updateDish();
+                case 5 -> dishSection.deleteDish();
+                case 6 -> displayDashboard();
+                default -> System.out.println("Invalid Input. Please enter the valid input from(1-6)");
+            }
+        }
+    }
 
 
 }
