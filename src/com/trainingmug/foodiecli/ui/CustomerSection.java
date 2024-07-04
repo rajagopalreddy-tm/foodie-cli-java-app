@@ -54,16 +54,11 @@ public class CustomerSection {
         System.out.println("Enter Password");
         String password = scanner.nextLine();
 
-        //call the method only with email and password
-
-        Customer customer = new Customer();
-        customer.setEmail(email)
-                .setPassword(password);
-
         try {
 
-            customerController.login(customer);
+            Customer customer = customerController.login(email , password);
             System.out.println("Customer Login Successful with Email: "+ customer.getEmail());
+            System.out.println("Welcome "+ customer.getName());
         } catch (CustomerNotFoundException e) {
             throw new RuntimeException(e);
         }

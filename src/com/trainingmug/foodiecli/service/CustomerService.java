@@ -8,11 +8,12 @@ import java.util.List;
 
 public interface CustomerService {
 
-    public List<Customer> getAllCustomer();
-    public Customer save(Customer customer) throws CustomerAlreadyExistsException;
+    List<Customer> getAllCustomer();
+    Customer save(Customer customer) throws CustomerAlreadyExistsException;
     Customer getCustomerById(String id) throws CustomerNotFoundException;
-    Customer login(Customer customer) throws CustomerNotFoundException;
-    public Customer edit(Customer customer,String id) throws CustomerNotFoundException;
-    public void delete(String id) throws CustomerNotFoundException;
-
+    Customer edit(Customer customer, String id) throws CustomerNotFoundException;
+    void delete(String id) throws CustomerNotFoundException;
+    Customer login(String email, String password) throws CustomerNotFoundException;
+    void setCurrentLogin(Customer customer);
+    Customer getCurrentLogin();
 }

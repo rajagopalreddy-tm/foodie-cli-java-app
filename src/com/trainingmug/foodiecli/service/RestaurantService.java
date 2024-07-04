@@ -1,7 +1,9 @@
 package com.trainingmug.foodiecli.service;
 
+import com.trainingmug.foodiecli.exceptions.DishNotFoundException;
 import com.trainingmug.foodiecli.exceptions.RestaurantAlreadyExistsException;
 import com.trainingmug.foodiecli.exceptions.RestaurantNotFoundException;
+import com.trainingmug.foodiecli.model.Dish;
 import com.trainingmug.foodiecli.model.Restaurant;
 
 import java.util.List;
@@ -13,5 +15,6 @@ public interface RestaurantService {
     Restaurant getRestaurantById(String id) throws RestaurantNotFoundException;
     Restaurant edit(Restaurant restaurant,String id) throws RestaurantNotFoundException;
     void delete(String id) throws RestaurantNotFoundException;
+    List<Dish> getDishItems(String id) throws RestaurantNotFoundException, DishNotFoundException;
 
 }

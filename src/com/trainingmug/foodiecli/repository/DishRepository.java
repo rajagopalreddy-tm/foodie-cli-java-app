@@ -16,7 +16,7 @@ public class DishRepository {
 
     public Optional<Dish> findDishById(String id) {
         return dishList.stream()
-                .filter(dishId -> dishId.getId().equals(id))
+                .filter(dish -> dish.getId().equals(id))
                 .findFirst();
     }
 

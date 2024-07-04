@@ -31,13 +31,11 @@ public class DishServiceImpl implements  DishService {
         return dishRepository.getAllDishes();
     }
 
+
     @Override
     public Dish getDishById(String id) throws DishNotFoundException {
-        Optional<Dish> dishId = dishRepository.findDishById(id);
-        if(dishId.isEmpty()){
-            throw new DishNotFoundException("Dish with ID: "+id+" not found");
-        }
-        return dishRepository.getDishById(id);
+        return dishRepository.findDishById(id)
+                .orElseThrow(() -> new DishNotFoundException("Dish not found with ID: " + id));
     }
 
     @Override

@@ -29,13 +29,6 @@ public class CustomerRepository {
         return customer;
     }
 
-    //get Customer by ID
-    public Customer getCustomerById(String id) {
-        Optional<Customer> customer = customersList.stream()
-                .filter(customerId -> customerId.getId().equals(id))
-                .findFirst();
-        return customer.orElseThrow();
-    }
 
     //find by id
     public Optional<Customer> findCustomerById(String customerId) {
@@ -48,6 +41,12 @@ public class CustomerRepository {
     public Optional<Customer> findCustomerByEmail(String email) {
         return customersList.stream()
                 .filter(customer -> customer.getEmail().equals(email))
+                .findFirst();
+    }
+
+    public Optional<Customer> findByEmailAndPassword(String email, String password){
+        return this.customersList.stream()
+                .filter(customer -> customer.getEmail().equalsIgnoreCase(email) && customer.getPassword().equals(password))
                 .findFirst();
     }
 
@@ -74,12 +73,6 @@ public class CustomerRepository {
         }
     }
 
-    public Customer login(Customer customer) {
-        if(findCustomerByEmail(customer.getEmail()).isEmpty()){
-            return null;
-        }
-        return customer;
-    }
 
 
 }

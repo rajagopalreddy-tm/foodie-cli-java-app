@@ -13,6 +13,6 @@ public interface DishService {
     List<Dish> getAllDishes();
     Dish getDishById(String id) throws DishNotFoundException;
     Dish edit(Dish dish, String id) throws DishNotFoundException;
-
     void delete(String id) throws DishNotFoundException;
+
 }

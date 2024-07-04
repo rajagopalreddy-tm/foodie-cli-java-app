@@ -1,5 +1,8 @@
 package com.trainingmug.foodiecli.ui;
 
+import com.trainingmug.foodiecli.exceptions.DishNotFoundException;
+import com.trainingmug.foodiecli.exceptions.RestaurantNotFoundException;
+
 import java.util.Scanner;
 
 public class Dashboard  {
@@ -10,7 +13,7 @@ public class Dashboard  {
     OrderSection orderSection = new OrderSection();
     Scanner scanner = new Scanner(System.in);
 
-    public void displayDashboard() {
+    public void displayDashboard() throws RestaurantNotFoundException, DishNotFoundException {
 
         while (true) {
 
@@ -41,7 +44,7 @@ public class Dashboard  {
     }
 
 
-    private void customerSection() {
+    private void customerSection() throws RestaurantNotFoundException, DishNotFoundException {
 
         while (true) {
             System.out.println("------------------------------------------------------------------");
@@ -74,7 +77,7 @@ public class Dashboard  {
         }
     }
 
-    private void restaurantSection() {
+    private void restaurantSection() throws RestaurantNotFoundException, DishNotFoundException {
 
         while (true) {
             System.out.println("------------------------------------------------------------------");
@@ -105,7 +108,7 @@ public class Dashboard  {
         }
     }
 
-    private void dishesSection() {
+    private void dishesSection() throws RestaurantNotFoundException, DishNotFoundException {
 
         while (true) {
             System.out.println("------------------------------------------------------------------");
@@ -136,7 +139,7 @@ public class Dashboard  {
         }
     }
 
-    private void orderSection() {
+    void orderSection() throws RestaurantNotFoundException, DishNotFoundException {
 
         while (true) {
             System.out.println("------------------------------------------------------------------");
@@ -162,5 +165,6 @@ public class Dashboard  {
             }
         }
     }
+
 
 }

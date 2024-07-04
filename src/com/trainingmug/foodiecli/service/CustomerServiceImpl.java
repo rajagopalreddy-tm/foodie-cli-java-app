@@ -12,6 +12,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     CustomerRepository customerRepository;
 
+    private Customer currentLogin;
+
     public CustomerServiceImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
@@ -36,7 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (customerId.isEmpty()){
             throw new CustomerNotFoundException("Customer with ID: "+ id +" not found");
         }
-        return customerRepository.getCustomerById(id);
+        return customerId.get();
     }
 
     @Override
@@ -58,12 +60,21 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer login(Customer customer) throws CustomerNotFoundException {
-        Optional<Customer> customerEmail = customerRepository.findCustomerByEmail(customer.getEmail());
-        if(customerEmail.isEmpty()){
-            throw new CustomerNotFoundException("Customer with Email : "+customer.getEmail()+" not found , please Sign Up");
-        }
-        return customerRepository.login(customer);
+    public Customer login(String email, String password) throws CustomerNotFoundException {
+        Optional<Customer> customerById = this.customerRepository.findByEmailAndPassword(email,password);
+        if(customerById.isEmpty())
+            throw new CustomerNotFoundException("Invalid Email or Password");
+        return customerById.get();
+    }
+
+    @Override
+    public void setCurrentLogin(Customer customer) {
+        this.currentLogin = customer;
+    }
+
+    @Override
+    public Customer getCurrentLogin() {
+        return this.currentLogin;
     }
 
 

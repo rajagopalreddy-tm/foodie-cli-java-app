@@ -1,10 +1,14 @@
 package com.trainingmug.foodiecli.service;
 
+import com.trainingmug.foodiecli.exceptions.DishNotFoundException;
 import com.trainingmug.foodiecli.exceptions.RestaurantAlreadyExistsException;
 import com.trainingmug.foodiecli.exceptions.RestaurantNotFoundException;
+import com.trainingmug.foodiecli.model.Dish;
 import com.trainingmug.foodiecli.model.Restaurant;
 import com.trainingmug.foodiecli.repository.RestaurantRepository;
+import com.trainingmug.foodiecli.util.Factory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,5 +61,24 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurantRepository.delete(id);
     }
 
+    @Override
+    public List<Dish> getDishItems(String id) throws RestaurantNotFoundException, DishNotFoundException {
+        Optional<Restaurant> restaurantById = this.restaurantRepository.findRestaurantById(id);
+        if(restaurantById.isEmpty()) {
+            throw new RestaurantNotFoundException("Restaurant Not Found with this Id  :" + id);
+        }
+
+        List<Dish> dishList = new ArrayList<>();
+        Restaurant restaurant = restaurantById.get();
+        List<String> dishIds = restaurant.getMenu();
+        DishService dishService = Factory.getDishService();
+
+        for(String dishId : dishIds){
+            Dish dish = dishService.getDishById(dishId);
+            dishList.add(dish);
+        }
+
+        return dishList;
+    }
 
 }

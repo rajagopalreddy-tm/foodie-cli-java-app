@@ -27,8 +27,15 @@ public class CustomerController {
         return customerService.getCustomerById(id);
     }
 
-    public Customer login(Customer customer) throws CustomerNotFoundException {
-        return customerService.login(customer);
+    public Customer login(String email, String password) throws CustomerNotFoundException {
+        Customer customer = this.customerService.login(email, password);
+        if(customer != null)
+            this.customerService.setCurrentLogin(customer);
+        return customer;
+    }
+
+    public Customer getCurrentLogin(){
+        return this.customerService.getCurrentLogin();
     }
 
     public Customer edit(Customer customer, String id) throws CustomerNotFoundException {
