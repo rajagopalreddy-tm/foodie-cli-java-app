@@ -1,16 +1,11 @@
 package com.trainingmug.foodiecli.ui;
 
 import com.trainingmug.foodiecli.controller.DishController;
-import com.trainingmug.foodiecli.exceptions.CustomerNotFoundException;
 import com.trainingmug.foodiecli.exceptions.DishAlreadyExistsException;
 import com.trainingmug.foodiecli.exceptions.DishNotFoundException;
-import com.trainingmug.foodiecli.exceptions.RestaurantNotFoundException;
-import com.trainingmug.foodiecli.model.Customer;
 import com.trainingmug.foodiecli.model.Dish;
-import com.trainingmug.foodiecli.model.Restaurant;
 import com.trainingmug.foodiecli.util.Factory;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -122,4 +117,6 @@ public class DishSection {
             System.out.println("Error: "+e.getMessage());
         }
     }
+
+
 }

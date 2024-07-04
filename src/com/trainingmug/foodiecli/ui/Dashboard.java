@@ -7,6 +7,7 @@ public class Dashboard  {
     CustomerSection customerSection = new CustomerSection();
     RestaurantSection restaurantSection = new RestaurantSection();
     DishSection dishSection = new DishSection();
+    OrderSection orderSection = new OrderSection();
     Scanner scanner = new Scanner(System.in);
 
     public void displayDashboard() {
@@ -33,7 +34,7 @@ public class Dashboard  {
                 case 1 -> customerSection();
                 case 2 -> restaurantSection();
                 case 3 -> dishesSection();
-//                case 4 -> orderSection();
+                case 4 -> orderSection();
                 default -> System.out.println("Invalid Input. Please enter the valid input from(1-5)");
             }
         }
@@ -135,5 +136,31 @@ public class Dashboard  {
         }
     }
 
+    private void orderSection() {
+
+        while (true) {
+            System.out.println("------------------------------------------------------------------");
+            System.out.println("                WELCOME TO Order Section                     ");
+            System.out.println("------------------------------------------------------------------");
+
+            System.out.println();
+            System.out.println("Please select the option !");
+            System.out.println("--------------------------");
+            System.out.println("1. Place an Order");
+            System.out.println("2. Search Order");
+            System.out.println("3. View All Orders");
+            System.out.println("4. Return to Dashboard");
+            System.out.println("Please enter your choice (1-4)");
+
+            int input = scanner.nextInt();
+            switch (input) {
+                case 1 -> orderSection.placeNewOrder();
+                case 2 -> orderSection.getOrderById();
+                case 3 -> orderSection.viewALlOrders();
+                case 4 -> displayDashboard();
+                default -> System.out.println("Invalid Input. Please enter the valid input from(1-6)");
+            }
+        }
+    }
 
 }

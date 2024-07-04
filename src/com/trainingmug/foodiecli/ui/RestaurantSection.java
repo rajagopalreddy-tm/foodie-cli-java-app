@@ -83,7 +83,7 @@ public class RestaurantSection {
         }
     }
 
-    public static void updateRestaurant() {
+    public void updateRestaurant() {
         System.out.println("Please enter the ID of the Restaurant you want to update:");
         String id = scanner.nextLine();
 
