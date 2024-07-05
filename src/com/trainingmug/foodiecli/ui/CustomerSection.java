@@ -5,26 +5,53 @@ import com.trainingmug.foodiecli.exceptions.CustomerAlreadyExistsException;
 import com.trainingmug.foodiecli.exceptions.CustomerNotFoundException;
 import com.trainingmug.foodiecli.model.Customer;
 import com.trainingmug.foodiecli.util.Factory;
+import com.trainingmug.foodiecli.util.Validate;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class CustomerSection {
 
     CustomerController customerController = Factory.getCustomerController();
-
+    Validate validate = new Validate();
 
     public void signUpCustomer() {
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please register entering the following details:\n");
+
         System.out.println("Enter Id");
         String id = scanner.nextLine();
+        Map<String, String> idValidation = validate.validateId(id);
+        if (!idValidation.get("Id").equals("1")) {
+            System.out.println(idValidation.get("Id"));
+            return;
+        }
+
         System.out.println("Enter Name");
         String name = scanner.nextLine();
+        Map<String, String> nameValidation = validate.validateName(name);
+        if (!nameValidation.get("Name").equals("1")) {
+            System.out.println(nameValidation.get("Name"));
+            return;
+        }
+
         System.out.println("Enter E-mail");
         String email = scanner.nextLine();
+        Map<String, String> emailValidation = validate.validateEmail(email);
+        if (!emailValidation.get("Email").equals("1")) {
+            System.out.println(emailValidation.get("Email"));
+            return;
+        }
+
         System.out.println("Enter Password");
         String password = scanner.nextLine();
+        Map<String, String> passwordValidation = validate.validatePassword(password);
+        if (!passwordValidation.get("Password").equals("1")) {
+            System.out.println(passwordValidation.get("Password"));
+            return;
+        }
 
         Customer customer = new Customer();
         customer.setId(id)
@@ -34,12 +61,9 @@ public class CustomerSection {
 
         try {
             Customer savedCustomer = customerController.save(customer);
-            System.out.println("Customer Registration Successful");
-            System.out.println("Details:");
-            System.out.println("Id : " + savedCustomer.getId());
-            System.out.println("Name : " + savedCustomer.getName());
-            System.out.println("E-mail : " + savedCustomer.getEmail());
-            System.out.println("Password : " + savedCustomer.getPassword());
+            System.out.println("Sigh Up successful !");
+            displayCustomerDetails(savedCustomer);
+            System.out.println("\n\n");
         } catch (CustomerAlreadyExistsException e) {
             System.out.println("Error: "+e.getMessage());
         }
@@ -59,20 +83,22 @@ public class CustomerSection {
             Customer customer = customerController.login(email , password);
             System.out.println("Customer Login Successful with Email: "+ customer.getEmail());
             System.out.println("Welcome "+ customer.getName());
+            System.out.println("\n\n");
         } catch (CustomerNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void viewCustomers() {
-        System.out.println("------------------------");
-        List<Customer> customerList = customerController.getAllCustomer();
-        for (Customer customer : customerList) {
-            System.out.println("ID: " + customer.getId());
-            System.out.println("Name: " + customer.getName());
-            System.out.println("Email: " + customer.getEmail());
-            System.out.println("------------------------");
-        }
+
+        List<Customer> customersList = this.customerController.getAllCustomer();
+        String dashesLine = new String(new char[150]).replace('\0', '-');
+        displayMenuHeader("Customers");
+        System.out.printf("%-10s %-30s %-80s %-30s\n", "Id", "Name", "E-mail", "Password");
+        System.out.println(dashesLine);
+        customersList.forEach(customer ->
+                System.out.printf("%-10s %-30s %-80s %-30s\n", customer.getId(), customer.getName(), customer.getEmail(), "*".repeat(customer.getPassword().length())));
+        System.out.println("\n\n");
     }
 
     public void getCustomerById() {
@@ -82,9 +108,8 @@ public class CustomerSection {
 
         try {
             Customer customer = customerController.getCustomerById(id);
-            System.out.println("Customer Details:");
-            System.out.println("Name: " + customer.getName());
-            System.out.println("E-mail: " + customer.getEmail());
+            displayCustomerDetails(customer);
+            System.out.println("\n\n");
         } catch (CustomerNotFoundException e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -98,12 +123,29 @@ public class CustomerSection {
 
         System.out.println("Please update by entering the following updated customer details\n");
 
-        System.out.println("Enter Name:");
+        System.out.println("Enter Name");
         String name = scanner.nextLine();
-        System.out.println("Enter E-mail:");
+        Map<String, String> nameValidation = validate.validateName(name);
+        if (!nameValidation.get("Name").equals("1")) {
+            System.out.println(nameValidation.get("Name"));
+            return;
+        }
+
+        System.out.println("Enter E-mail");
         String email = scanner.nextLine();
-        System.out.println("Enter Password:");
+        Map<String, String> emailValidation = validate.validateEmail(email);
+        if (!emailValidation.get("Email").equals("1")) {
+            System.out.println(emailValidation.get("Email"));
+            return;
+        }
+
+        System.out.println("Enter Password");
         String password = scanner.nextLine();
+        Map<String, String> passwordValidation = validate.validatePassword(password);
+        if (!passwordValidation.get("Password").equals("1")) {
+            System.out.println(passwordValidation.get("Password"));
+            return;
+        }
 
         Customer customer = new Customer();
         customer.setId(id)
@@ -112,13 +154,9 @@ public class CustomerSection {
                 .setPassword(password);
 
         try {
-            customerController.edit(customer, id);
-            System.out.println("Customer updated successfully.");
-            System.out.println("Updated Details:");
-            System.out.println("Id : " + id);
-            System.out.println("Name : " + customer.getName());
-            System.out.println("E-mail : " + customer.getEmail());
-            System.out.println("Password : " + customer.getPassword());
+            Customer customer1 = customerController.edit(customer, id);
+            displayCustomerDetails(customer1);
+            System.out.println("\n\n");
         } catch (CustomerNotFoundException e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -132,9 +170,29 @@ public class CustomerSection {
         try{
             customerController.delete(id);
             System.out.println("Customer with ID: "+id+" deleted successfully !");
+            System.out.println("\n\n");
         } catch (CustomerNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void displayCustomerDetails(Customer customer) {
+        displayMenuHeader("Customer Details");
+        System.out.printf("%-10s %-30s %-80s %-30s\n", "Id", "Name", "E-mail", "Password");
+        printDashLine();
+        System.out.printf("%-10s %-30s %-80s %-30s\n", customer.getId(), customer.getName(), customer.getEmail(), "*".repeat(customer.getPassword().length()));
+        System.out.println("\n\n");
+    }
+
+    public void displayMenuHeader(String menuHeader) {
+        printDashLine();
+        String spaces = new String(new char[70]).replace('\0', ' ');
+        System.out.printf("%-70s %-10s %-70s \n", spaces, menuHeader, spaces);
+        printDashLine();
+    }
+
+    public void printDashLine(){
+        String dashesLine = new String(new char[150]).replace('\0', '-');
+        System.out.println(dashesLine);
     }
 
 }

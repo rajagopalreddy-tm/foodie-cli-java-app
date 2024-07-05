@@ -17,9 +17,7 @@ public class Dashboard  {
 
         while (true) {
 
-            System.out.println("------------------------------------------------------------------");
-            System.out.println("                WELCOME TO FOODIE APP DASHBOARD                   ");
-            System.out.println("------------------------------------------------------------------");
+            displayMenuHeader("WELCOME TO FOODIE APP");
 
             System.out.println();
             System.out.println("Please select the option !");
@@ -38,6 +36,7 @@ public class Dashboard  {
                 case 2 -> restaurantSection();
                 case 3 -> dishesSection();
                 case 4 -> orderSection();
+                case 5 -> System.exit(0);
                 default -> System.out.println("Invalid Input. Please enter the valid input from(1-5)");
             }
         }
@@ -47,9 +46,7 @@ public class Dashboard  {
     private void customerSection() throws RestaurantNotFoundException, DishNotFoundException {
 
         while (true) {
-            System.out.println("------------------------------------------------------------------");
-            System.out.println("                WELCOME TO Customers Section                      ");
-            System.out.println("------------------------------------------------------------------");
+            displayMenuHeader("WELCOME TO CUSTOMER SECTION");
 
             System.out.println();
             System.out.println("Please select the option !");
@@ -80,9 +77,7 @@ public class Dashboard  {
     private void restaurantSection() throws RestaurantNotFoundException, DishNotFoundException {
 
         while (true) {
-            System.out.println("------------------------------------------------------------------");
-            System.out.println("                WELCOME TO Restaurant Section                     ");
-            System.out.println("------------------------------------------------------------------");
+            displayMenuHeader("WELCOME TO RESTAURANT SECTION");
 
             System.out.println();
             System.out.println("Please select the option !");
@@ -111,9 +106,7 @@ public class Dashboard  {
     private void dishesSection() throws RestaurantNotFoundException, DishNotFoundException {
 
         while (true) {
-            System.out.println("------------------------------------------------------------------");
-            System.out.println("                WELCOME TO Dishes Section                     ");
-            System.out.println("------------------------------------------------------------------");
+            displayMenuHeader("WELCOME TO dISH SECTION");
 
             System.out.println();
             System.out.println("Please select the option !");
@@ -142,9 +135,7 @@ public class Dashboard  {
     void orderSection() throws RestaurantNotFoundException, DishNotFoundException {
 
         while (true) {
-            System.out.println("------------------------------------------------------------------");
-            System.out.println("                WELCOME TO Order Section                     ");
-            System.out.println("------------------------------------------------------------------");
+            displayMenuHeader("WELCOME TO ODER SECTION");
 
             System.out.println();
             System.out.println("Please select the option !");
@@ -166,5 +157,16 @@ public class Dashboard  {
         }
     }
 
+    public void displayMenuHeader(String menuHeader) {
+        printDashLine();
+        String spaces = new String(new char[70]).replace('\0', ' ');
+        System.out.printf("%-70s %-10s %-70s \n", spaces, menuHeader, spaces);
+        printDashLine();
+    }
+
+    public void printDashLine(){
+        String dashesLine = new String(new char[150]).replace('\0', '-');
+        System.out.println(dashesLine);
+    }
 
 }

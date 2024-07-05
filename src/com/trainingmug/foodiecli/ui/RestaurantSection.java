@@ -1,21 +1,23 @@
 package com.trainingmug.foodiecli.ui;
 
 import com.trainingmug.foodiecli.controller.RestaurantController;
-import com.trainingmug.foodiecli.exceptions.CustomerNotFoundException;
 import com.trainingmug.foodiecli.exceptions.DishNotFoundException;
 import com.trainingmug.foodiecli.exceptions.RestaurantAlreadyExistsException;
 import com.trainingmug.foodiecli.exceptions.RestaurantNotFoundException;
-import com.trainingmug.foodiecli.model.Customer;
 import com.trainingmug.foodiecli.model.Dish;
 import com.trainingmug.foodiecli.model.Restaurant;
 import com.trainingmug.foodiecli.service.RestaurantService;
 import com.trainingmug.foodiecli.util.Factory;
+import com.trainingmug.foodiecli.util.Validate;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class RestaurantSection {
+
+    Validate validate = new Validate();
 
     static RestaurantController restaurantController = Factory.getRestaurantController();
     static Scanner scanner = new Scanner(System.in);
@@ -25,12 +27,33 @@ public class RestaurantSection {
         System.out.println("Add a Restaurant entering the following details:\n");
         System.out.println("Enter ID:");
         String id = scanner.nextLine();
-        System.out.println("Enter Name:");
+        Map<String, String> idValidation = validate.validateId(id);
+        if (!idValidation.get("Id").equals("1")) {
+            System.out.println(idValidation.get("Id"));
+            return;
+        }
+
+        System.out.println("Enter Name");
         String name = scanner.nextLine();
+        Map<String, String> nameValidation = validate.validateName(name);
+        if (!nameValidation.get("Name").equals("1")) {
+            System.out.println(nameValidation.get("Name"));
+            return;
+        }
         System.out.println("Enter Address:");
         String address = scanner.nextLine();
+        Map<String, String> addressValidation = validate.validateName(name);
+        if (!addressValidation.get("Name").equals("1")) {
+            System.out.println(addressValidation.get("Name"));
+            return;
+        }
         System.out.println("Enter Menu:");
         String menu = scanner.nextLine();
+        Map<String, String> menuValidation = validate.validateMenu(menu);
+        if (!menuValidation.get("Name").equals("1")) {
+            System.out.println(menuValidation.get("Name"));
+            return;
+        }
 
         Restaurant restaurant = new Restaurant();
         restaurant.setId(id)
@@ -39,34 +62,27 @@ public class RestaurantSection {
                 .setMenu(Collections.singletonList(menu));
 
         try {
-            Restaurant restaurantSave = restaurantController.save(restaurant);
-            System.out.println("New Restaurant added successfully !");
-            System.out.println("Details:");
-            System.out.println("Restaurant ID:" + restaurantSave.getId());
-            System.out.println("Restaurant Name:" + restaurantSave.getName());
-            System.out.println("Restaurant Address:" + restaurantSave.getAddress());
-            System.out.println("Restaurant Menu:" + restaurantSave.getMenu());
+            Restaurant restaurant1 = restaurantController.save(restaurant);
+            displayMenuHeader("Restaurant Details");
+            System.out.printf("%-10s %-30s %-80s %-30s\n", "Id", "Name", "Address", "Menu Items");
+            printDashLine();
+            System.out.printf("%-10s %-30s %-80s %-30s\n", restaurant1.getId(), restaurant1.getName(), restaurant1.getAddress(), String.join(":", restaurant1.getMenu()));
+            System.out.println("\n\n");
         } catch (RestaurantAlreadyExistsException e) {
             System.out.println("Error : " + e.getMessage());
         }
     }
 
     public void viewRestaurants() {
-        try {
-            System.out.println("------------------------");
-            System.out.println("List of all Restaurants");
-            List<Restaurant> restaurantList = restaurantController.getAllRestaurants();
-            for (Restaurant restaurant : restaurantList) {
-                System.out.println("Restaurant ID: "+ restaurant.getId());
-                System.out.println("Restaurant Name: "+ restaurant.getName());
-                System.out.println("Restaurant Address: "+ restaurant.getAddress());
-                System.out.println("Restaurant Menu: "+ restaurant.getMenu());
-                System.out.println("------------------------");
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
 
+        List<Restaurant> restaurantList = restaurantController.getAllRestaurants();
+        displayMenuHeader("Restaurants");
+        System.out.printf("%-10s %-30s %-80s %-30s\n", "Id", "Name", "Address", "Menu Items");
+        printDashLine();
+        restaurantList.forEach(restaurant -> {
+            System.out.printf("%-10s %-30s %-80s %-30s\n", restaurant.getId(), restaurant.getName(), restaurant.getAddress(), String.join(":", restaurant.getMenu()));
+        });
+        System.out.println("\n\n");
     }
 
     public void searchRestaurant() {
@@ -76,28 +92,48 @@ public class RestaurantSection {
 
         try{
             Restaurant restaurant = restaurantController.getRestaurantById(id);
-            System.out.println("Restaurant Details:");
-            System.out.println("ID: " + restaurant.getId());
-            System.out.println("Name: " + restaurant.getName());
-            System.out.println("E-mail: " + restaurant.getAddress());
-            System.out.println("Menu: " + restaurant.getMenu());
-        } catch (RestaurantNotFoundException e) {
-            System.out.println("Error: "+ e.getMessage());
+            displayMenuHeader("Restaurant Details");
+            System.out.printf("%-10s %-30s %-80s %-30s\n", "Id", "Name", "Address", "Menu Items");
+            printDashLine();
+            System.out.printf("%-10s %-30s %-80s %-30s\n", restaurant.getId(), restaurant.getName(), restaurant.getAddress(), String.join(":", restaurant.getMenu()));
+            System.out.println("\n\n");
+        } catch (RestaurantNotFoundException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
     public void updateRestaurant() {
         System.out.println("Please enter the ID of the Restaurant you want to update:");
         String id = scanner.nextLine();
+        Map<String, String> idValidation = validate.validateId(id);
+        if (!idValidation.get("Id").equals("1")) {
+            System.out.println(idValidation.get("Id"));
+            return;
+        }
 
         System.out.println("Please enter updated Restaurant details:\n");
 
-        System.out.println("Name: ");
+        System.out.println("Enter Name");
         String name = scanner.nextLine();
-        System.out.println("Address: ");
+        Map<String, String> nameValidation = validate.validateName(name);
+        if (!nameValidation.get("Name").equals("1")) {
+            System.out.println(nameValidation.get("Name"));
+            return;
+        }
+        System.out.println("Enter Address:");
         String address = scanner.nextLine();
-        System.out.println("Menu: ");
+        Map<String, String> addressValidation = validate.validateName(name);
+        if (!addressValidation.get("Name").equals("1")) {
+            System.out.println(addressValidation.get("Name"));
+            return;
+        }
+        System.out.println("Enter Menu:");
         String menu = scanner.nextLine();
+        Map<String, String> menuValidation = validate.validateMenu(menu);
+        if (!menuValidation.get("Name").equals("1")) {
+            System.out.println(menuValidation.get("Name"));
+            return;
+        }
 
         Restaurant restaurant = new Restaurant();
         restaurant.setId(id)
@@ -106,23 +142,28 @@ public class RestaurantSection {
                 .setMenu(Collections.singletonList(menu));
 
         try {
-            Restaurant restaurantUpdated = restaurantController.edit(restaurant, id);
-            System.out.println("Restaurant updated successfully");
-            System.out.println("Details: ");
-            System.out.println("Name: " + restaurantUpdated.getName());
-            System.out.println("Address: " + restaurantUpdated.getAddress());
-            System.out.println("Menu: " + restaurantUpdated.getMenu());
+            Restaurant restaurant1 = restaurantController.edit(restaurant, id);
+            displayMenuHeader("Restaurant Details");
+            System.out.printf("%-10s %-30s %-80s %-30s\n", "Id", "Name", "Address", "Menu Items");
+            printDashLine();
+            System.out.printf("%-10s %-30s %-80s %-30s\n", restaurant1.getId(), restaurant1.getName(), restaurant1.getAddress(), String.join(":", restaurant1.getMenu()));
+            System.out.println("\n\n");
         } catch (RestaurantNotFoundException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 
     public void displayMenuItems(String restaurantId) throws RestaurantNotFoundException, DishNotFoundException {
+
+        displayMenuHeader("Dishes Menu Details");
+        System.out.printf("%-10s %-30s %-80s %-10s\n", "Id", "Name", "Description", "Price");
+        printDashLine();
         RestaurantService restaurantService = Factory.getRestaurantService();
         List<Dish> dishItems = restaurantService.getDishItems(restaurantId);
         for(Dish dish : dishItems){
             System.out.printf("%-10s %-30s %-80s %-10s\n", dish.getId(), dish.getName(), dish.getDescription(), String.format("$%.2f", dish.getPrice()));
         }
+        System.out.println("\n\n");
     }
 
     public void deleteRestaurant() {
@@ -132,9 +173,23 @@ public class RestaurantSection {
         try{
             restaurantController.delete(id);
             System.out.println("Restaurant with the ID: "+ id +" deleted successfully");
+            System.out.println("\n\n");
         } catch (RestaurantNotFoundException e) {
             System.out.println("Error: "+e.getMessage());
         }
+
+    }
+
+    public void displayMenuHeader(String menuHeader) {
+        printDashLine();
+        String spaces = new String(new char[70]).replace('\0', ' ');
+        System.out.printf("%-70s %-10s %-70s \n", spaces, menuHeader, spaces);
+        printDashLine();
+    }
+
+    public void printDashLine(){
+        String dashesLine = new String(new char[150]).replace('\0', '-');
+        System.out.println(dashesLine);
     }
 
 }
